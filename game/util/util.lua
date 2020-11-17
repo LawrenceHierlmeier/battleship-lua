@@ -1,3 +1,6 @@
+local saveFileName = "saveGame.data"
+local settingsFileName = "settings.data"
+
 function checkRectCollision(checkX, checkY, x, y, width, height)
     if (checkX < x or checkX > x+width or checkY < y or checkY > y + height)
     then
@@ -66,4 +69,36 @@ function makeGrid(rows, cols, fill)
     end
 
     return grid
+end
+
+--[[
+  Returns success, error
+
+  If success is false, error contains a message.
+]]
+function saveGame()
+  local saveData = Lume.serialize(GAME_INFO)
+  
+  print(love.filesystem.getSaveDirectory())
+
+  return love.filesystem.write(saveFileName, saveData)
+end
+
+--[[
+  Returns nil if the load is successful, otherwise, returns the error message.
+]]
+
+function loadGame()
+  contents, error = love.filesystem.read(saveFileName)
+
+  if (contents ~= nil) then
+    print("Load successful!")
+    GAME_INFO = contents
+
+    return nil
+  else
+    print("Load failed!")
+
+    return error
+  end
 end

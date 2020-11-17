@@ -8,6 +8,7 @@ end
 
 function love.load()
     Object = require "libraries.classic.classic"
+    Lume = require "libraries.lume.lume"
     
     require "game.gui.screens.base_screen"
     require "game.gui.screens.pause_screen"
@@ -30,7 +31,7 @@ function love.load()
     require "game.data.ai"
 
     SCREEN_MAN = ScreenManager()
-    
+
     love.graphics.setFont(love.graphics.newFont(20))
 end
 
