@@ -3,6 +3,7 @@ local GameInfo = {
   ["gamemode"] = "PlayerPlayer",
   ["isAiHardmode"] = false,
   ["isInGame"] = false,
+  ["isPlayerOneTurn"] = true,
   ["playerOne"] = {
     ["ships"] = {
       ["c"] = Carrier(-1, -1),

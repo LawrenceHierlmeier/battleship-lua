@@ -3,7 +3,7 @@ PlayScreen = BaseScreen:extend()
 function PlayScreen:new(color, bg_image)
     PlayScreen.super.new(self, {.3, .5, .3, 1.0}, nil)
 
-    self.player1 = true
+    GAME_INFO["isPlayerOneTurn"] = true
     self.fired = false
 
     self.cellSize = 50
@@ -29,20 +29,8 @@ function PlayScreen:new(color, bg_image)
                 local opponent = "playerTwo"
                 self.fired = false
 
-                if not self.player1 then
-                    opponent = "playerOne"
-                    self.player1 = true
-                else
-                    self.player1 = false
-                end
-
-                self.widgets[1] = GameGrid(40, 70, self.cellSize, self.gridSize,
-                    GAME_INFO[opponent]["shipGrid"], nil)
-                self.widgets[2] = GameGrid(740 , 70, self.cellSize, self.gridSize,
-                    GAME_INFO[opponent]["hitGrid"], nil,
-                    function()
-                        self:fire()
-                    end)
+                self:swapToOpponent()
+                GAME_INFO["isPlayerOneTurn"] = not GAME_INFO["isPlayerOneTurn"]
             end,
             540, 648, 200, 50
         ),
@@ -57,11 +45,30 @@ function PlayScreen:new(color, bg_image)
             {1.0, 1.0, 1.0, 1.0}, "center"
         ),
         Label(
-            (self.player1 and "Player One's Turn") or "Player Two's Turn",
+            (GAME_INFO["isPlayerOneTurn"] and "Player One's Turn") or "Player Two's Turn",
             515, 10, 250,
             {1.0, 1.0, 1.0, 1.0}, "center"
+        ),
+        Button(
+          "Save game",
+          function()
+            saveGame() -- TODO Add the error checking here.
+          end,
+          540, 588, 200, 50
         )
     }
+end
+
+function PlayScreen:reset()
+  local player = GAME_INFO["isPlayerOneTurn"] and "playerOne" or "playerTwo"
+  self.widgets[1].grid = GAME_INFO[player]["shipGrid"]
+  self.widgets[2].grid = GAME_INFO[player]["hitGrid"]
+end
+
+function PlayScreen:swapToOpponent()
+  local opponent = GAME_INFO["isPlayerOneTurn"] and "playerTwo" or "playerOne"
+  self.widgets[1].grid = GAME_INFO[opponent]["shipGrid"]
+  self.widgets[2].grid = GAME_INFO[opponent]["hitGrid"]
 end
 
 function PlayScreen:fire()
@@ -73,7 +80,7 @@ function PlayScreen:fire()
     local player = "playerOne"
     local opponent = "playerTwo"
 
-    if not self.player1 then
+    if not GAME_INFO["isPlayerOneTurn"] then
         player = "playerTwo"
         opponent = "playerOne"
     end
