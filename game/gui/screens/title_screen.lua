@@ -15,7 +15,7 @@ function TitleScreen:new()
           if (error ~= nil) then
             self.widgets[4].visible = true
           else
-            SCREEN_MAN:changeScreen("game")
+            SCREEN_MAN:changeScreen("play")
           end
         end,
         20, 140, 200, 100),
@@ -23,7 +23,10 @@ function TitleScreen:new()
         function()
           love.event.push('quit')
         end,
-        20, 260, 200, 100)
+        20, 260, 200, 100),
+        Label("Load failed.", 20, 380, 100, nil, "left")
     }
+
+    self.widgets[4].visible = false
     
 end

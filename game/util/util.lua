@@ -93,7 +93,7 @@ function loadGame()
 
   if (contents ~= nil) then
     print("Load successful!")
-    GAME_INFO = contents
+    GAME_INFO = Lume.deserialize(contents)
 
     return nil
   else
