@@ -30,7 +30,7 @@ function PlayScreen:new(color, bg_image)
         Button(
             "Finish turn",
             function()
-                if not self.fired then
+                if not self.fired and GAME_INFO["gamemode"] ~= "ComputerComputer" then
                     return
                 end
 
@@ -58,6 +58,7 @@ function PlayScreen:new(color, bg_image)
                             opponent = "playerOne"
                             GAME_INFO["isPlayerOneTurn"] = true
                         else
+                            opponent = "playerTwo"
                             GAME_INFO["isPlayerOneTurn"] = false
                         end
                     end
