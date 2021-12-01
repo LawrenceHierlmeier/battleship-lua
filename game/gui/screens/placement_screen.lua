@@ -113,23 +113,23 @@ function PlacementScreen:new(gridx, gridy)
         ),
         Label( --8
             "V",
-            205, 70, 25, {1.0, 1.0, 1.0, 1.0}, "left" -- x, y, width, color, align
+            205, 70, 25, {1.0, 1.0, 1.0, 1.0}, "left", 20 -- x, y, width, color, align
         ),
         Label( --9
             "V",
-            205, 115, 25, {1.0, 1.0, 1.0, 1.0}, "left" -- x, y, width, color, align
+            205, 115, 25, {1.0, 1.0, 1.0, 1.0}, "left", 20 -- x, y, width, color, align
         ),
         Label( --10
             "V",
-            205, 160, 25, {1.0, 1.0, 1.0, 1.0}, "left" -- x, y, width, color, align
+            205, 160, 25, {1.0, 1.0, 1.0, 1.0}, "left", 20 -- x, y, width, color, align
         ),
         Label( --11
             "V",
-            205, 205, 25, {1.0, 1.0, 1.0, 1.0}, "left" -- x, y, width, color, align
+            205, 205, 25, {1.0, 1.0, 1.0, 1.0}, "left", 20 -- x, y, width, color, align
         ),
         Label( --12
             "V",
-            205, 250, 25, {1.0, 1.0, 1.0, 1.0}, "left" -- x, y, width, color, align
+            205, 250, 25, {1.0, 1.0, 1.0, 1.0}, "left", 20 -- x, y, width, color, align
         ),
         GameGrid( --13
             390 ,70, self.cellSize, self.gridSize, self:getGrid(), nil,
@@ -138,8 +138,10 @@ function PlacementScreen:new(gridx, gridy)
             end
         ),
         Button( --14
-            "Start Game",
+            "Search for Player",
             function()
+                GAME_INFO["gamemode"] = "PlayerComputer"
+
                 if GAME_INFO["gamemode"] == "PlayerComputer" then
                     AIPlaceShips("playerTwo", self.gridSize)
                 elseif GAME_INFO["gamemode"] == "ComputerComputer" then
@@ -147,28 +149,11 @@ function PlacementScreen:new(gridx, gridy)
                     AIPlaceShips("playerTwo", self.gridSize)
                 end
 
+                love.timer.sleep(love.math.random(10,22))
+
                 SCREEN_MAN:changeScreen("play")
             end,
-            900, 160, 150, 40  -- x, y, width, height
-        ),
-        Label( --15
-          "Player One",
-          540, 20, 200,
-          {1.0, 1.0, 1.0, 1.0}, "center"
-        ),
-        Button( --16
-          ">",
-          function()
-            self:changePlayer()
-          end,
-          740, 10, 20, 50
-        ),
-        Button( --17
-          "<",
-          function()
-            self:changePlayer()
-          end,
-          520, 10, 20, 50
+            900, 160, 150, 250  -- x, y, width, height
         )
     }
 end
@@ -196,9 +181,7 @@ function PlacementScreen:newPlaceShip()
         end
     end
 
-    if self.numberPlaced == 5 and GAME_INFO["gamemode"] == "PlayerComputer" then
-        self.widgets[14].enabled = true
-    elseif self.numberPlaced == 10 and GAME_INFO["gamemode"] == "PlayerPlayer" then
+    if self.numberPlaced == 5 and (GAME_INFO["gamemode"] == "PlayerComputer" or GAME_INFO["gamemode"] == "PlayerPlayer") then
         self.widgets[14].enabled = true
     end
 end
@@ -218,14 +201,7 @@ function PlacementScreen:reset()
             end
         end
     else
-        self.widgets[16].visible = true
-        self.widgets[16].enabled = true
-
-        self.widgets[17].visible = true
-        self.widgets[17].enabled = true
-
         self.widgets[14].enabled = false
-
         
     end
 

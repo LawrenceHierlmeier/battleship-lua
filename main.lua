@@ -1,3 +1,9 @@
+local socket = require "socket"
+local address, port = "192.168.10.241", 12345
+udp = socket.udp()
+udp:setpeername(address, port)
+udp:settimeout(0)
+
 function love.mousepressed(x, y, button, istouch, presses)
     SCREEN_MAN:mousepressed(x, y, button, istouch, presses)
 end

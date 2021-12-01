@@ -8,25 +8,14 @@ function TitleScreen:new()
         function()
           SCREEN_MAN:changeScreen("setup")
         end,
-        540, 140, 200, 100),
-        Button("Load Game",
-        function()
-          local error = loadGame()
-          if (error ~= nil) then
-            self.widgets[4].visible = true
-          else
-            SCREEN_MAN:changeScreen("play")
-          end
-        end,
-        540, 260, 200, 100),
+        540, 460, 200, 100),
         Button("Exit Game",
         function()
           love.event.push('quit')
         end,
-        540, 380, 200, 100),
-        Label("Load failed.", 540, 380, 100, {1.0, 1.0, 1.0, 1.0}, "left")
+        540, 580, 200, 100),
+        Label("Battleship", 340, 180, 600, {1.0, 1.0, 1.0, 1.0}, "center", 50),
+        Label("Online", 340, 280, 600, {1.0, 1.0, 1.0, 1.0}, "center", 50)
     }
-
-    self.widgets[4].visible = false
     
 end

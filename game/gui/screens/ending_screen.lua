@@ -4,7 +4,7 @@ function EndingScreen:new(color, bg_image)
     EndingScreen.super.new(self, {.3, .5, .3, 1.0}, nil)
 
     self.widgets = {
-        Label("Congrats", 0,200,1280,{1.0, 1.0, 1.0, 1.0}, "center"),
+        Label("Congrats", 0,200,1280,{1.0, 1.0, 1.0, 1.0}, "center", 20),
         Button(
             "New Game",
             function()

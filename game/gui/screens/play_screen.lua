@@ -49,6 +49,7 @@ function PlayScreen:new(color, bg_image)
                 if GAME_INFO["gamemode"] == "ComputerComputer"
                     or (not GAME_INFO["isPlayerOneTurn"] and GAME_INFO["gamemode"] == "PlayerComputer")
                 then
+                    love.timer.sleep(love.math.random(1,5))
                     self:fire()
                     self.fired = false
 
@@ -74,33 +75,36 @@ function PlayScreen:new(color, bg_image)
                     end)
 
                 -- Update text on screen
-                self.widgets[6] = Label((GAME_INFO["isPlayerOneTurn"] and "Player One's Turn") or "Player Two's Turn", 515, 10, 250,
-                        {1.0, 1.0, 1.0, 1.0}, "center")
+                self.widgets[6] = Label(
+                    "Ship Pieces Left: " .. GAME_INFO["playerTwo"]["health"],
+                    340, 10, 600,
+                    {1.0, 1.0, 1.0, 1.0}, "center", 20
+                )
                 self.widgets[7] = Label(
                         "Previous shot was a " .. GAME_INFO[(GAME_INFO["isPlayerOneTurn"] and "playerOne") or "playerTwo"]["previousShot"],
-                        515, 40, 250, {1.0, 1.0, 1.0, 1.0}, "center")
+                        515, 40, 250, {1.0, 1.0, 1.0, 1.0}, "center", 20)
             end,
             540, 648, 200, 50
         ),
         Label(
             "Your ships:",
             190, 40, 200,
-            {1.0, 1.0, 1.0, 1.0}, "center"
+            {1.0, 1.0, 1.0, 1.0}, "center", 20
         ),
         Label(
             "Your shots:",
             895, 40, 200,
-            {1.0, 1.0, 1.0, 1.0}, "center"
+            {1.0, 1.0, 1.0, 1.0}, "center", 20
         ),
         Label(
-            (GAME_INFO["isPlayerOneTurn"] and "Player One's Turn") or "Player Two's Turn",
-            515, 10, 250,
-            {1.0, 1.0, 1.0, 1.0}, "center"
+            "Ship Pieces Left: " .. GAME_INFO["playerTwo"]["health"],
+            340, 10, 600,
+            {1.0, 1.0, 1.0, 1.0}, "center", 20
         ),
         Label(
             "Previous shot was a " .. GAME_INFO[(GAME_INFO["isPlayerOneTurn"] and "playerOne") or "playerTwo"]["previousShot"],
             515, 40, 250,
-            {1.0, 1.0, 1.0, 1.0}, "center"
+            {1.0, 1.0, 1.0, 1.0}, "center", 20
         ),
         Button(
           "Save game",

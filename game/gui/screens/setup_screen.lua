@@ -62,7 +62,7 @@ function SetupScreen:new()
             end,
             385, 250, 50, 40
         ),
-        Label("Game Settings",565, 150, 150, {1.0, 1.0, 1.0, 1.0}, "left")
+        Label("Game Settings",340, 100, 600, {1.0, 1.0, 1.0, 1.0}, "center", 50)
     }
 
     self.gamemode = "none"
